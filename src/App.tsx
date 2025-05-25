@@ -1,9 +1,7 @@
+import { EnrollProfilePage } from './pages/enroll-profile';
+
 function App() {
-  return (
-    <>
-      <h1>multi-step-form</h1>
-    </>
-  );
+  return <EnrollProfilePage />;
 }
 
 export default App;
