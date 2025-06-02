@@ -1,7 +1,7 @@
-import { EnrollProfilePage } from './pages/enroll-profile';
+import { Routes } from './app/Routes';
 
 function App() {
-  return <EnrollProfilePage />;
+  return <Routes />;
 }
 
 export default App;
