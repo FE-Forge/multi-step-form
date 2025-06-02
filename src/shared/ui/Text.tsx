@@ -6,7 +6,7 @@ import { cn } from '@/shared/utils';
 export interface BaseProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
   children?: ReactNode;
-  level: 't1' | 't2' | 'b1';
+  level: 't1' | 't2' | 'b1' | 'error';
   required?: boolean;
 }
 
@@ -18,6 +18,7 @@ const textVariants = cva('', {
       t1: 'text-[18px] font-bold',
       t2: 'text-[16px] font-bold',
       b1: 'text-[14px] font-normal',
+      error: 'text-red-500 text-[12px]',
     },
   },
 });
