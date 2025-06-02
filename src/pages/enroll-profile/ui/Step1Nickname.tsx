@@ -1,0 +1,40 @@
+import { useState } from 'react';
+import { Button, FixedBottom, Input, Text } from '@/shared/ui';
+
+import { nicknameSchema } from '../model/enroll-profile.schema';
+import { useEnrollProfile } from '../model/enroll-profile.context';
+import { useNavigate } from 'react-router-dom';
+
+export function Step1Nickname() {
+  const navigate = useNavigate();
+  const { state, dispatch } = useEnrollProfile();
+
+  const [nickname, setNickname] = useState(state.nickname);
+
+  const hasValue = nickname.length > 0;
+  const isValid = nicknameSchema.safeParse({ nickname }).success;
+  const errorMessage = nicknameSchema.safeParse({ nickname }).error?.issues[0].message;
+  return (
+    <>
+      <div className="flex flex-col gap-2">
+        <Text as="p" level="t2" required>
+          닉네임
+        </Text>
+        <Input placeholder="닉네임을 입력해주세요" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+        {hasValue && errorMessage && <Text level="error">{errorMessage}</Text>}
+      </div>
+
+      <FixedBottom className="flex gap-2">
+        <Button
+          onClick={() => {
+            dispatch({ type: 'SET_NICKNAME', payload: nickname });
+            navigate('/enroll-profile/2');
+          }}
+          disabled={!isValid}
+        >
+          다음
+        </Button>
+      </FixedBottom>
+    </>
+  );
+}
