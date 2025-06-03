@@ -20,3 +20,7 @@ export const genresSchema = z.object({
 export const favoriteWorkSchema = z.object({
   favoriteWork: z.string().min(1, '작품명을 입력해주세요.'),
 });
+
+export const favoriteMovieDramaSchema = z.object({
+  favoriteMovieDrama: z.string().min(1, '작품명을 입력해주세요.'),
+});
