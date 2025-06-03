@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { ProgressBar, Text } from '@/shared/ui';
-import { NickName } from './NickName';
-import { Gender } from './Gender';
-import { FavoriteGenre } from './FavoriteGenre';
-import { FavoriteMovieDrama } from './FavoriteMovieDrama';
+import { Step1Nickname } from './Step1Nickname';
+import { Step2Gender } from './Step2Gender';
+import { Step3FavoriteGenre } from './Step3FavoriteGenre';
+import { Step4FavoriteMovieDrama } from './Step4FavoriteMovieDrama';
 
 const MAX_STEP = 4;
 const STEP_TITLE: Record<number, string> = {
@@ -15,7 +15,8 @@ const STEP_TITLE: Record<number, string> = {
 };
 
 export function EnrollProfilePage() {
-  const [step, setStep] = useState(3);
+  const { step: stepParam = '1' } = useParams();
+  const step = Number(stepParam);
 
   return (
     <main className="max-w-[360px] mx-auto mt-10">
@@ -31,10 +32,10 @@ export function EnrollProfilePage() {
       </section>
 
       <section className="mt-10">
-        {step === 1 && <NickName onNext={() => setStep(2)} />}
-        {step === 2 && <Gender onPrev={() => setStep(1)} onNext={() => setStep(3)} />}
-        {step === 3 && <FavoriteGenre onPrev={() => setStep(2)} onNext={() => setStep(4)} />}
-        {step === 4 && <FavoriteMovieDrama onPrev={() => setStep(3)} onSubmit={() => {}} />}
+        {step === 1 && <Step1Nickname />}
+        {step === 2 && <Step2Gender />}
+        {step === 3 && <Step3FavoriteGenre />}
+        {step === 4 && <Step4FavoriteMovieDrama />}
       </section>
     </main>
   );
