@@ -61,7 +61,7 @@ export function Step4FavoriteMovieDrama() {
           이전
         </Button>
         <Button onClick={handleSubmit} disabled={!isValid.success || isPending}>
-          완료
+          {isPending ? '제출중...' : '완료'}
         </Button>
       </FixedBottom>
     </>
