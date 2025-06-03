@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import { EnrollProfileProvider } from '@/pages/enroll-profile/model/enroll-profile.context';
 import { EnrollProfilePage } from '@/pages/enroll-profile';
-import { EnrollProfileCompletePage } from '@/pages/enroll-profile-complete';
+import { EnrollProfileCompletePage, EnrollProfileCompleteSkeleton } from '@/pages/enroll-profile-complete';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   {
     path: '/enroll-profile-complete/:userId',
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<EnrollProfileCompleteSkeleton />}>
         <EnrollProfileCompletePage />
       </Suspense>
     ),
