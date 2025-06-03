@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
-import { EnrollProfileProvider } from '@/pages/enroll-profile/model/enroll-profile.context';
 import { EnrollProfilePage } from '@/pages/enroll-profile';
 import { EnrollProfileCompletePage } from '@/pages/enroll-profile-complete';
 
@@ -11,11 +10,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/enroll-profile/:step',
-    element: (
-      <EnrollProfileProvider>
-        <EnrollProfilePage />
-      </EnrollProfileProvider>
-    ),
+    element: <EnrollProfilePage />,
   },
   {
     path: '/enroll-profile-complete/:userId',
