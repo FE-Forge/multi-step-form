@@ -1,9 +1,8 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { Suspense } from 'react';
 
 import { EnrollProfileProvider } from '@/pages/enroll-profile/model/enroll-profile.context';
 import { EnrollProfilePage } from '@/pages/enroll-profile';
-import { EnrollProfileCompletePage, EnrollProfileCompleteSkeleton } from '@/pages/enroll-profile-complete';
+import { EnrollProfileCompletePage } from '@/pages/enroll-profile-complete';
 
 const router = createBrowserRouter([
   {
@@ -20,11 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/enroll-profile-complete/:userId',
-    element: (
-      <Suspense fallback={<EnrollProfileCompleteSkeleton />}>
-        <EnrollProfileCompletePage />
-      </Suspense>
-    ),
+    element: <EnrollProfileCompletePage />,
   },
   {
     path: '*',
