@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react';
 import type { ReactNode, Dispatch } from 'react';
 import { enrollProfileReducer, initialEnrollProfileState } from './enroll-profile.reducer';
 import type { EnrollProfileState, EnrollProfileAction } from './enroll-profile.reducer';
-import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/shared/utils/sessionStorage';
+import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/shared/utils';
 
 interface EnrollProfileContextType {
   state: EnrollProfileState;
