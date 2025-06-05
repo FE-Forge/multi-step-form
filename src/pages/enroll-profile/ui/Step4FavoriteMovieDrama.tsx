@@ -1,9 +1,10 @@
+import { isAxiosError } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isAxiosError } from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
 import { Button, FixedBottom, Input, Text } from '@/shared/ui';
-import { useCreateOnboarding } from '../api/useCreateOnboarding.mutation';
+import { createOnboardingOptions } from '../api/onboarding.mutation';
 import { useEnrollProfile } from '../model/enroll-profile.context';
 import { favoriteMovieDramaSchema } from '../model/enroll-profile.schema';
 
@@ -11,7 +12,7 @@ export function Step4FavoriteMovieDrama() {
   const navigate = useNavigate();
 
   const { state, dispatch } = useEnrollProfile();
-  const { mutate: createOnboarding, isPending } = useCreateOnboarding();
+  const { mutate: createOnboarding, isPending } = useMutation(createOnboardingOptions());
 
   const [favoriteMovieDrama, setFavoriteMovieDrama] = useState(state.favoriteMovieDrama);
 
@@ -30,6 +31,7 @@ export function Step4FavoriteMovieDrama() {
         },
         // GYU-TODO: 특정 페이지의 전체 UI 를 대체하는게 아닌, 메시지 노출만 제어하는 경우
         // 해당 경우 에러 바운더리로 처리하는 것보다 그냥 alert 처리하는게 더 좋다고 생각
+        // 그래서 throwOnError 미사용
         onError: (error) => {
           let errorMessage = error.message;
           if (isAxiosError(error)) {
