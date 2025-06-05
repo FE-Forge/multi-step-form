@@ -4,12 +4,8 @@ import { enrollProfileReducer, initialEnrollProfileState } from './enroll-profil
 import type { EnrollProfileState, EnrollProfileAction } from './enroll-profile.reducer';
 import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/shared/utils';
 
-interface EnrollProfileContextType {
-  state: EnrollProfileState;
-  dispatch: Dispatch<EnrollProfileAction>;
-}
-
-const EnrollProfileContext = createContext<EnrollProfileContextType | null>(null);
+const EnrollProfileStateContext = createContext<EnrollProfileState | null>(null);
+const EnrollProfileDispatchContext = createContext<Dispatch<EnrollProfileAction> | null>(null);
 
 const SESSION_STORAGE_KEY = 'enroll-profile-state';
 
@@ -33,13 +29,33 @@ export function EnrollProfileProvider({ children }: { children: ReactNode }) {
     [state],
   );
 
-  return <EnrollProfileContext.Provider value={{ state, dispatch }}>{children}</EnrollProfileContext.Provider>;
+  return (
+    <EnrollProfileStateContext.Provider value={state}>
+      <EnrollProfileDispatchContext.Provider value={dispatch}>{children}</EnrollProfileDispatchContext.Provider>
+    </EnrollProfileStateContext.Provider>
+  );
 }
 
-export function useEnrollProfile() {
-  const context = useContext(EnrollProfileContext);
+export function useEnrollProfileState() {
+  const context = useContext(EnrollProfileStateContext);
   if (!context) {
-    throw new Error('useEnrollProfile must be used within an EnrollProfileProvider');
+    throw new Error('useEnrollProfileState must be used within an EnrollProfileProvider');
   }
   return context;
+}
+
+export function useEnrollProfileDispatch() {
+  const context = useContext(EnrollProfileDispatchContext);
+  if (!context) {
+    throw new Error('useEnrollProfileDispatch must be used within an EnrollProfileProvider');
+  }
+  return context;
+}
+
+// 둘 다 필요한 경우
+export function useEnrollProfile() {
+  return {
+    state: useEnrollProfileState(),
+    dispatch: useEnrollProfileDispatch(),
+  };
 }
