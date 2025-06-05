@@ -1,15 +1,10 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, FixedBottom, Text } from '@/shared/ui';
-import { userQueryOptions } from '../api/useGetUser.query';
+import type { User } from '@/entities/user';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
-
-export function EnrollProfileCompleteView() {
-  const { userId } = useParams();
+export function EnrollProfileCompleteView({ user }: { user: User }) {
   const navigate = useNavigate();
-
-  const { data: user } = useSuspenseQuery(userQueryOptions(Number(userId)));
 
   return (
     <main className="max-w-[360px] mx-auto mt-10">

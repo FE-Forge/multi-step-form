@@ -3,6 +3,6 @@ import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOptions = (userId: number) =>
   queryOptions({
-    queryKey: ['user', userId],
+    queryKey: ['user', userId] as const,
     queryFn: () => getUser(userId),
   });
