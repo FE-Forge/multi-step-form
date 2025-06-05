@@ -1,6 +1,12 @@
 ## Multi-Step-Form 기능 요구사항
+
 #### [온보딩 Swagger API](https://onboarding-server-idpj.onrender.com/docs)
 
+### 시연영상
+
+<p align="center">
+  <img src="example-form.gif" alt="example-form" />
+</p>
 
 ### 1. 온보딩 등록 폼 공통 요구사항
 
@@ -36,7 +42,7 @@
 - [x] 완료 시 전체 입력 데이터를 확인할 수 있어야 함
 
 #### 5단계: 온보딩 결과 페이지
-- [x] 1 ~ 4 단계에서 사용자가 입력한 정보 데이터를 최종적으로 규합하여 확인할 수 있어야 함
+- [ ] 1 ~ 4 단계에서 사용자가 입력한 정보 데이터를 최종적으로 규합하여 확인할 수 있어야 함
 
 ### 3.기술적 요구사항 포인트
 
