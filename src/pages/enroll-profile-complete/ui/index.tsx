@@ -1,5 +1,6 @@
 import { Suspense, ErrorBoundary } from '@suspensive/react';
 import { SuspenseQuery } from '@suspensive/react-query';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import { EnrollProfileCompleteView } from './EnrollProfileCompleteView';
@@ -11,12 +12,16 @@ export function EnrollProfileCompletePage() {
   const { userId } = useParams();
 
   return (
-    <ErrorBoundary fallback={({ reset, error }) => <ErrorFallback error={error} reset={reset} />}>
-      <Suspense fallback={<EnrollProfileCompleteSkeleton />}>
-        <SuspenseQuery {...userQueryOptions(Number(userId))}>
-          {({ data }) => <EnrollProfileCompleteView user={data} />}
-        </SuspenseQuery>
-      </Suspense>
-    </ErrorBoundary>
+    <QueryErrorResetBoundary>
+      {({ reset }) => (
+        <ErrorBoundary fallback={ErrorFallback} onReset={reset}>
+          <Suspense fallback={<EnrollProfileCompleteSkeleton />}>
+            <SuspenseQuery {...userQueryOptions(Number(userId))}>
+              {({ data }) => <EnrollProfileCompleteView user={data} />}
+            </SuspenseQuery>
+          </Suspense>
+        </ErrorBoundary>
+      )}
+    </QueryErrorResetBoundary>
   );
 }
