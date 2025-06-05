@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #3399FF;
+  --color-error: #FF4D4D;
+  --color-gray100: #F2F2F2;
+  --color-gray200: #E6E6E6;
+  --color-gray300: #CCCCCC;
+  --color-gray400: #B3B3B3;
+  --color-gray500: #999999;
+  --color-gray600: #808080;
+  --color-gray700: #666666;
+  --color-gray800: #4D4D4D;
+  --color-gray900: #333333;
+
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+body {
+  background-color: #ececec;
+}
