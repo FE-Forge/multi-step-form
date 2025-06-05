@@ -3,11 +3,12 @@ import { Button, FixedBottom, Input, Text } from '@/shared/ui';
 
 import { nicknameSchema } from '../model/enroll-profile.schema';
 import { useEnrollProfile } from '../model/enroll-profile.context';
-import { useNavigate } from 'react-router-dom';
+import { useStepNavigation } from '../model/useStepNavigation';
 
 export function Step1Nickname() {
-  const navigate = useNavigate();
   const { state, dispatch } = useEnrollProfile();
+
+  const { goToNextStep } = useStepNavigation();
 
   const [nickname, setNickname] = useState(state.nickname);
 
@@ -28,7 +29,7 @@ export function Step1Nickname() {
         <Button
           onClick={() => {
             dispatch({ type: 'SET_NICKNAME', payload: nickname });
-            navigate('/enroll-profile/2');
+            goToNextStep();
           }}
           disabled={!isValid}
         >

@@ -2,12 +2,13 @@ import { Button, FixedBottom, Text } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 import { useState } from 'react';
 import { useEnrollProfile } from '../model/enroll-profile.context';
-import { useNavigate } from 'react-router-dom';
+import { useStepNavigation } from '../model/useStepNavigation';
 
 export function Step2Gender() {
-  const navigate = useNavigate();
-
   const { state, dispatch } = useEnrollProfile();
+
+  const { goToNextStep, goToPrevStep } = useStepNavigation();
+
   const [gender, setGender] = useState<'male' | 'female' | ''>(state.gender);
 
   const hasValue = gender !== '';
@@ -37,13 +38,13 @@ export function Step2Gender() {
       </div>
 
       <FixedBottom className="flex gap-2">
-        <Button level="secondary" onClick={() => navigate('/enroll-profile/1')}>
+        <Button level="secondary" onClick={goToPrevStep}>
           이전
         </Button>
         <Button
           onClick={() => {
             dispatch({ type: 'SET_GENDER', payload: gender });
-            navigate('/enroll-profile/3');
+            goToNextStep();
           }}
           disabled={!hasValue}
         >

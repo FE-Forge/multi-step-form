@@ -2,13 +2,15 @@ import { Button, FixedBottom, Text } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 import { useState, type ButtonHTMLAttributes } from 'react';
 import { useEnrollProfile } from '../model/enroll-profile.context';
-import { useNavigate } from 'react-router-dom';
+import { useStepNavigation } from '../model/useStepNavigation';
 
 const GENRE_LIST = ['액션', '코미디', '드라마', '로맨스', 'SF', '공포'];
 
 export function Step3FavoriteGenre() {
-  const navigate = useNavigate();
   const { state, dispatch } = useEnrollProfile();
+
+  const { goToNextStep, goToPrevStep } = useStepNavigation();
+
   const [selectedGenres, setSelectedGenres] = useState<string[]>(state.genres);
 
   const isSelected = selectedGenres.length > 0;
@@ -39,13 +41,13 @@ export function Step3FavoriteGenre() {
       </div>
 
       <FixedBottom className="flex gap-2">
-        <Button level="secondary" onClick={() => navigate('/enroll-profile/2')}>
+        <Button level="secondary" onClick={goToPrevStep}>
           이전
         </Button>
         <Button
           onClick={() => {
             dispatch({ type: 'SET_GENRES', payload: selectedGenres });
-            navigate('/enroll-profile/4');
+            goToNextStep();
           }}
           disabled={!isSelected}
         >

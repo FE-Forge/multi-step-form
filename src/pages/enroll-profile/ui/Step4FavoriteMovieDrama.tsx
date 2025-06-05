@@ -1,15 +1,17 @@
 import { isAxiosError } from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, FixedBottom, Input, Text } from '@/shared/ui';
 import { createOnboardingOptions } from '../api/onboarding.mutation';
 import { useEnrollProfile } from '../model/enroll-profile.context';
 import { favoriteMovieDramaSchema } from '../model/enroll-profile.schema';
+import { useStepNavigation } from '../model/useStepNavigation';
 
 export function Step4FavoriteMovieDrama() {
   const navigate = useNavigate();
+  const { goToPrevStep } = useStepNavigation();
 
   const { state, dispatch } = useEnrollProfile();
   const { mutate: createOnboarding, isPending } = useMutation(createOnboardingOptions());
@@ -59,7 +61,7 @@ export function Step4FavoriteMovieDrama() {
       </div>
 
       <FixedBottom className="flex gap-2">
-        <Button level="secondary" onClick={() => navigate('/enroll-profile/3')}>
+        <Button level="secondary" onClick={goToPrevStep}>
           이전
         </Button>
         <Button onClick={handleSubmit} disabled={!isValid.success || isPending}>

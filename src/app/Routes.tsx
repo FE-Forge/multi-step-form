@@ -7,14 +7,10 @@ import { NotFound } from '@/shared/ui/NotFound';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/enroll-profile" replace />,
+    element: <Navigate to="/enroll-profile?step=1" replace />,
   },
   {
     path: '/enroll-profile',
-    element: <Navigate to="/enroll-profile/1" replace />,
-  },
-  {
-    path: '/enroll-profile/:step',
     element: <EnrollProfilePage />,
   },
   {

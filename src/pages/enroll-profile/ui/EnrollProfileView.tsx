@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { ProgressBar, Text } from '@/shared/ui';
 import { Step1Nickname } from './Step1Nickname';
 import { Step2Gender } from './Step2Gender';
 import { Step3FavoriteGenre } from './Step3FavoriteGenre';
 import { Step4FavoriteMovieDrama } from './Step4FavoriteMovieDrama';
+import { NOT_ALLOWED_STEP, useStepNavigation } from '../model/useStepNavigation';
 
 const MAX_STEP = 4;
 const STEP_TITLE: Record<number, string> = {
@@ -15,8 +16,11 @@ const STEP_TITLE: Record<number, string> = {
 };
 
 export function EnrollProfileView() {
-  const { step: stepParam = '1' } = useParams();
-  const step = Number(stepParam);
+  const { currentStep } = useStepNavigation();
+
+  if (currentStep == NOT_ALLOWED_STEP) {
+    return <Navigate to="/enroll-profile?step=1" replace />;
+  }
 
   return (
     <main className="max-w-[360px] mx-auto mt-10">
@@ -25,18 +29,18 @@ export function EnrollProfileView() {
           프로필 등록
         </Text>
         <Text as="span" level="b1">
-          {step}/{MAX_STEP} 단계 : {STEP_TITLE[step]}
+          {currentStep}/{MAX_STEP} 단계 : {STEP_TITLE[currentStep]}
         </Text>
 
-        <ProgressBar current={step} max={MAX_STEP} />
+        <ProgressBar current={currentStep} max={MAX_STEP} />
       </section>
 
       <section className="mt-10">
         {/* GYU-TODO: useFunnel 방식으로 대체 가능 */}
-        {step === 1 && <Step1Nickname />}
-        {step === 2 && <Step2Gender />}
-        {step === 3 && <Step3FavoriteGenre />}
-        {step === 4 && <Step4FavoriteMovieDrama />}
+        {currentStep === 1 && <Step1Nickname />}
+        {currentStep === 2 && <Step2Gender />}
+        {currentStep === 3 && <Step3FavoriteGenre />}
+        {currentStep === 4 && <Step4FavoriteMovieDrama />}
       </section>
     </main>
   );
