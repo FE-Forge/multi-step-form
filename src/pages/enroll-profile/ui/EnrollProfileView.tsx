@@ -32,6 +32,7 @@ export function EnrollProfileView() {
       </section>
 
       <section className="mt-10">
+        {/* GYU-TODO: useFunnel 방식으로 대체 가능 */}
         {step === 1 && <Step1Nickname />}
         {step === 2 && <Step2Gender />}
         {step === 3 && <Step3FavoriteGenre />}
