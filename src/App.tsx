@@ -1,8 +1,10 @@
+import Router from './routers/Router';
+
 function App() {
   return (
-    <>
-      <h1>multi-step-form</h1>
-    </>
+    <div className='min-h-screen bg-gray-50'>
+      <Router />
+    </div>
   );
 }
 
