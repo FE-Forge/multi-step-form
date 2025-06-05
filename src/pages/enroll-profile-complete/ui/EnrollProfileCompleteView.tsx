@@ -1,13 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button, FixedBottom, Text } from '@/shared/ui';
-import { useGetUser } from '../api/useGetUser.query';
+import { userQueryOptions } from '../api/useGetUser.query';
+
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export function EnrollProfileCompleteView() {
   const { userId } = useParams();
   const navigate = useNavigate();
 
-  const { data: user } = useGetUser(Number(userId));
+  const { data: user } = useSuspenseQuery(userQueryOptions(Number(userId)));
 
   return (
     <main className="max-w-[360px] mx-auto mt-10">
@@ -27,11 +29,11 @@ export function EnrollProfileCompleteView() {
         </Text>
 
         <ul className="flex flex-col gap-2">
-          <SummaryItem label="사용자 ID:" value={`#${user?.id}`} />
-          <SummaryItem label="닉네임:" value={user?.nickname} />
-          <SummaryItem label="성별:" value={user?.gender} />
-          <SummaryItem label="선호 장르:" value={user?.genre.join(', ')} />
-          <SummaryItem label="인생 영화/드라마:" value={user?.favorite_movie} />
+          <SummaryItem label="사용자 ID:" value={`#${user.id}`} />
+          <SummaryItem label="닉네임:" value={user.nickname} />
+          <SummaryItem label="성별:" value={user.gender} />
+          <SummaryItem label="선호 장르:" value={user.genre.join(', ')} />
+          <SummaryItem label="인생 영화/드라마:" value={user.favorite_movie} />
         </ul>
       </section>
 
